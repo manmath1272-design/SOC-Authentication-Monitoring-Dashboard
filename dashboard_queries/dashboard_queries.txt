@@ -1,0 +1,86 @@
+Logs:
+index=main
+
+1. Failed Login Details
+index=main EventCode=4625
+| table _time Account_Name Logon_Type Failure_Reason Source_Network_Address
+| sort -_time
+
+2. Successful Login Details
+index=main EventCode=4624
+| table _time Account_Name Logon_Type Authentication_Package_Name Source_Network_Address
+| sort -_time
+
+
+3. Combined 4624 + 4625 Timeline
+index=main (EventCode=4624 OR EventCode=4625)
+| table _time EventCode Account_Name Logon_Type Source_Network_Address
+| sort -_time
+
+
+4. Final Professional Brute Force Detection
+index=main EventCode=4625
+| eval Target_User=mvfilter(
+    Account_Name!="SYSTEM"
+    AND Account_Name!="LOCAL SERVICE"
+    AND Account_Name!="NETWORK SERVICE"
+    AND NOT match(Account_Name,"\$$")
+)
+| mvexpand Target_User
+| bin _time span=1m
+| stats count values(Source_Network_Address) as Source_IP by _time Target_User
+| where count>=5
+
+5. Successful Login Counter
+index=main EventCode=4624
+| stats count as Successful_Logins
+Visualization: Single Value
+
+6. Failed Login Counter
+index=main EventCode=4625
+| stats count as Failed_Logins
+Visualization: Single Value
+
+7. Login Activity Trend
+index=main (EventCode=4624 OR EventCode=4625)
+| eval Status=case(
+    EventCode=4624, "Successful",
+    EventCode=4625, "Failed"
+)
+| timechart span=5m count by Status
+Visualization: Line Chart
+
+8. Top Target Users
+index=main EventCode=4625
+| eval Target_User=mvfilter(
+    Account_Name!="SYSTEM"
+    AND Account_Name!="LOCAL SERVICE"
+    AND Account_Name!="NETWORK SERVICE"
+    AND NOT match(Account_Name,"\$$")
+)
+| mvexpand Target_User
+| stats count as Failed_Attempts by Target_User
+| sort -Failed_Attempts
+| head 10
+Visualization: Table किंवा Bar Chart
+
+9. Top Source IPs
+index=main EventCode=4625
+| stats count as Failed_Attempts by Source_Network_Address
+| sort -Failed_Attempts
+| head 10
+Visualization: Table
+
+10. Recent Failed Logins
+index=main EventCode=4625
+| eval Target_User=mvfilter(
+    Account_Name!="SYSTEM"
+    AND Account_Name!="LOCAL SERVICE"
+    AND Account_Name!="NETWORK SERVICE"
+    AND NOT match(Account_Name,"\$$")
+)
+| mvexpand Target_User
+| table _time Target_User Source_Network_Address Logon_Type Failure_Reason
+| sort -_time
+| head 10
+Visualization: Table
