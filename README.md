@@ -109,6 +109,27 @@ SOC-Authentication-Monitoring-Dashboard
 # 📸 Screenshots
 
 Screenshots are available in the **screenshots/** folder.
+## 📸 Complete Project Overview
+
+![Project Overview](screenshots/project_overview.png)
+
+---
+
+## 📊 SOC Authentication Dashboard
+
+![SOC Dashboard](screenshots/08_complete_dashboard.png)
+
+---
+
+## 🚨 Brute Force Detection
+
+![Brute Force Detection](screenshots/05_brute_force_detection.png)
+
+---
+
+## 🔔 Triggered Alert
+
+![Triggered Alert](screenshots/07_triggered_alert.png)
 
 ---
 
