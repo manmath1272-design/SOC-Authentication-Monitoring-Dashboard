@@ -1,4 +1,7 @@
 # 🛡️ SOC Authentication Monitoring Dashboard
+<p align="center">
+  <img src="screenshots/08_complete_dashboard.png" width="100%">
+</p>
 
 A Splunk Enterprise project focused on monitoring Windows authentication events, detecting brute-force attacks, generating alerts, and visualizing security data through an interactive SOC dashboard.
 
