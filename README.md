@@ -1,4 +1,8 @@
 # 🛡️ SOC Authentication Monitoring Dashboard
+![Splunk](https://img.shields.io/badge/Splunk-Enterprise-green)
+![Windows](https://img.shields.io/badge/Windows-11-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen)
 <p align="center">
   <img src="screenshots/08_complete_dashboard.png" width="100%">
 </p>
