@@ -167,3 +167,8 @@ dashboard_queries/dashboard_queries.txt
 # ⚠️ Disclaimer
 
 This project was performed in a controlled lab environment for educational and defensive cybersecurity purposes only.
+## 📄 Project Report
+
+Download the complete PDF report here:
+
+[📥 Download Report](SOC_Authentication_Monitoring_Dashboard_Report.pdf)
